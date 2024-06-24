@@ -11,11 +11,7 @@ class DynamicTablesPage {
   getTableRows() {
     return cy.get('tbody').children();
   }
-
-  getTable() {
-    return cy.get("#product_table");
-  }
-
+  
   getModalHeading() {
     return cy.get('#modal_title')
   }
