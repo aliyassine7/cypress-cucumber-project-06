@@ -20,13 +20,18 @@ Then(/^the user should see the table with the headers below$/, (dataTable) => {
 });
 
 Then(/^the user should see the table with the rows below$/, (dataTable) => {
-	const arr = dataTable.rawTable
-  
-	dynamicTablesPage.getTableRows().each(($el, outerIndex) => {
-    cy.wrap($el).children().each(($cell, innerIndex) => {
-      cy.wrap($cell).should('have.text', arr[outerIndex][innerIndex])
-    })
+	const arr = dataTable.rawTable.flat()
+  cy.log(arr)
+
+  cy.get('#product_table td').each(($el, index) => {
+    cy.wrap($el).should('have.text', arr[index])
   })
+  
+	// dynamicTablesPage.getTableRows().each(($el, outerIndex) => {
+  //   cy.wrap($el).children().each(($cell, innerIndex) => {
+  //     cy.wrap($cell).should('have.text', arr[outerIndex][innerIndex])
+  //   })
+  // })
 });
 
 Then(/^the user should see the "([^"]*)" button is enabled$/, (button) => {
@@ -63,7 +68,7 @@ Then(/^the user enters the "([^"]*)" as "([^"]*)"$/, (box, input) => {
 
 Then(/^the user should see the table with the new row below$/, (dataTable) => {
   const arr = dataTable.rawTable.flat()
-
+  
   dynamicTablesPage.getLastRow().children().each(($el, index) => {
     cy.wrap($el).should('have.text', arr[index])
   })
